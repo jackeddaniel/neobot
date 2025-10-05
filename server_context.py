@@ -79,7 +79,7 @@ def explain(req: SnippetRequest):
     session = sessions[req.session_id]
 
     # Build prompt with limit instruction
-    prompt = f"Explain the following code snippet in context of the full file in 3 sentences or less:\n{req.snippet}\n"
+    prompt = f"Explain the following code snippet in context of the full file in concisely:\n{req.snippet}\n"
     if req.question:
         prompt += f"Question: {req.question}\n"
     if req.programming_lang:
@@ -103,39 +103,25 @@ def explain(req: SnippetRequest):
 def fix(req: SnippetRequest):
     if req.session_id not in sessions:
         raise HTTPException(status_code=404, detail="Session not found")
-
     session = sessions[req.session_id]
-
-    # --- Extract context around snippet ---
-    full_lines = session["full_file"].splitlines()
-    snippet_lines = req.snippet.splitlines()
-    snippet_start_idx = full_lines.index(snippet_lines[0]) if snippet_lines else 0
-    context_start = max(0, snippet_start_idx - 10)
-    context_end = min(len(full_lines), snippet_start_idx + len(snippet_lines) + 10)
-    context_snippet = "\n".join(full_lines[context_start:context_end])
-
-    # Build prompt
-    prompt = f"Fix any bugs in the following snippet in context:\n{context_snippet}\n"
+    
+    # Build prompt with only the snippet
+    prompt = f"Fix any bugs in the following code snippet:\n\n```\n{req.snippet}\n```\n\n"
+    
     if req.programming_lang:
-        prompt = f"Programming language: {req.programming_lang}\n" + prompt
-    prompt += "\nReturn only the corrected code."
-
-    # Include last 2 messages in session for context
-    last_history = session["history"][-2:] if len(session["history"]) >= 2 else session["history"]
-    for h in last_history:
-        prompt += f"\n{h['role']}:\n{h['content']}\n"
-
+        prompt = f"Programming language: {req.programming_lang}\n\n" + prompt
+    
+    prompt += "Return only the corrected code snippet."
+    
     try:
         fixed_code = ai_response(prompt, timeout=60)  # timeout 60s
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
-
+    
     session["history"].append({"role": "user", "content": req.snippet})
     session["history"].append({"role": "assistant", "content": fixed_code})
-
+    
     return {"fixed_code": fixed_code}
-
-
 @app.post("/get_full_explanation")
 def get_full_explanation(session_id: str):
     if session_id not in sessions:
