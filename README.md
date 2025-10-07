@@ -77,7 +77,7 @@ Visual	<leader>mca	Auto-insert completed method
 
 💡 Make sure you’re in visual mode to select the snippet first.
 
-🔁 Typical Workflow
+## 🔁 Typical Workflow
 
 Start editing a file in Neovim.
 
@@ -85,19 +85,19 @@ Visually select a block of code.
 
 Press one of the keymaps:
 
-<leader>me → Explain the selected snippet.
+\<leader\>me → Explain the selected snippet.
 
-<leader>mf → Fix bugs in the snippet.
+\<leader\>mf → Fix bugs in the snippet.
 
-<leader>mc → Complete a method body and preview.
+\<leader\>mc → Complete a method body and preview.
 
-<leader>mca → Auto-insert the method implementation.
+\<leader\>mca → Auto-insert the method implementation.
 
 A floating window opens with the AI’s response (markdown formatted).
 
 Sessions are stored per buffer, so subsequent calls retain context.
 
-Close the floating window with q or <Esc>.
+Close the floating window with q or \<Esc\>.
 
 ## 🧠 Session Model
 
@@ -110,7 +110,7 @@ Subsequent snippet queries include:
 
 This makes the model’s responses much more accurate and contextual, especially for multi-function files.
 
-🧩 Extending Neobot
+## 🧩 Extending Neobot
 
 Because the backend is a FastAPI server, you can easily add:
 - ✅ Test case generation
