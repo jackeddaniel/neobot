@@ -22,8 +22,11 @@ It uses Google Gemini to provide code explanations, bug fixes, and method comple
 ## 🧰 Tech Stack
 
 **Backend**: FastAPI + Python
+
 **Frontend**: Neovim (Lua plugin)
+
 **Model**: Gemini 2.5 Flash
+
 **Communication**: REST API
 
 ## 🚀 Quick Start
