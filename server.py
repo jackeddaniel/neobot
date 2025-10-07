@@ -36,7 +36,7 @@ class StartSessionRequest(BaseModel):
 
 class SnippetRequest(BaseModel):
     session_id: str
-    snippet: str
+    snippet: str | None = None
     question: str | None = None
     programming_lang: str | None = None
 
@@ -99,6 +99,22 @@ def explain(req: SnippetRequest):
     logging.info(f"Returned explanation for session {req.session_id}")
     return {"explanation": explanation}
 
+# Summarizing the entire file 
+@app.post("/summary")
+def summary(req: SnippetRequest):
+    if req.session_id not in sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    curr_session = sessions[req.session_id]
+
+    prompt = f"Explain the following file: \n {curr_session['full_file']}"
+    
+    explanation = ai_response(prompt)
+    
+    logging.info(f"Returned explanation for session {req.session_id}")
+    return {"explanation": explanation}
+
+
 @app.post("/fix")
 def fix(req: SnippetRequest):
     if req.session_id not in sessions:
@@ -122,6 +138,7 @@ def fix(req: SnippetRequest):
     session["history"].append({"role": "assistant", "content": fixed_code})
     
     return {"fixed_code": fixed_code}
+
 @app.post("/get_full_explanation")
 def get_full_explanation(session_id: str):
     if session_id not in sessions:
