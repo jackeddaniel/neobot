@@ -1,15 +1,15 @@
-🧠 Neobot — AI-Powered Neovim Coding Assistant
+# 🧠 Neobot — AI-Powered Neovim Coding Assistant
 
 Neobot MCP is a lightweight Model Context Protocol (MCP) server paired with a Neovim plugin that brings AI coding features directly into your editor — no browser tabs, no context switching.
 It uses Google Gemini to provide code explanations, bug fixes, and method completions within the context of the entire file you're working on.
 
-✨ Features
+## ✨ Features
 
-📝 Explain Code — Select any snippet and get a contextual explanation inline.
+**📝 Explain Code** — Select any snippet and get a contextual explanation inline.
 
-🛠 Bug Fixing — Select a block, get back a fixed version of it.
+**🛠 Bug Fixing** — Select a block, get back a fixed version of it.
 
-🧠 Method Completion — Give a method prototype and let the model implement it using the file context.
+**🧠 Method Completion** — Give a method prototype and let the model implement it using the file context.
 
 ⚡ Autofill — Directly insert the completed method below the selection.
 
@@ -23,17 +23,14 @@ It uses Google Gemini to provide code explanations, bug fixes, and method comple
 
 (Optional — you can add a GIF or short mp4 later showing the floating window in action)
 
-🧰 Tech Stack
+## 🧰 Tech Stack
 
-Backend: FastAPI + Python
+**Backend**: FastAPI + Python
+**Frontend**: Neovim (Lua plugin)
+**Model**: Gemini 2.5 Flash
+**Communication**: REST API
 
-Frontend: Neovim (Lua plugin)
-
-Model: Gemini 2.5 Flash
-
-Communication: REST API
-
-🚀 Quick Start
+## 🚀 Quick Start
 1. Clone the Repo
 git clone https://github.com/yourusername/neobot-mcp.git
 cd neobot-mcp
@@ -41,9 +38,7 @@ cd neobot-mcp
 2. Set up Environment
 
 Create a .env file in the project root:
-
 GEMINI_API_KEY=your_api_key_here
-
 
 You can get your key from Google AI Studio
 .
@@ -105,35 +100,28 @@ Sessions are stored per buffer, so subsequent calls retain context.
 
 Close the floating window with q or <Esc>.
 
-🧠 Session Model
+## 🧠 Session Model
 
 Each file buffer opens a session with the backend the first time you make a request.
 The full file is sent initially, and the backend maintains a history of interactions.
 Subsequent snippet queries include:
-
-The full file content
-
-Your question/snippet
-
-Conversation history
+- The full file content
+- Your question/snippet
+- Conversation history
 
 This makes the model’s responses much more accurate and contextual, especially for multi-function files.
 
 🧩 Extending Neobot
 
 Because the backend is a FastAPI server, you can easily add:
-
-✅ Test case generation
-
-🧪 Refactoring suggestions
-
-📝 Documentation generation
-
-💡 Code review mode
+- ✅ Test case generation
+- 🧪 Refactoring suggestions
+- 📝 Documentation generation
+- 💡 Code review mode
 
 Each feature can be exposed as a new endpoint + mapped to a keybinding in init.lua.
 
-🛠 Troubleshooting
+## 🛠 Troubleshooting
 
 ❌ Timeout on /fix → The Gemini API may take longer for large code blocks; try selecting smaller snippets.
 
