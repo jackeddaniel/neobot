@@ -11,17 +11,13 @@ It uses Google Gemini to provide code explanations, bug fixes, and method comple
 
 **🧠 Method Completion** — Give a method prototype and let the model implement it using the file context.
 
-⚡ Autofill — Directly insert the completed method below the selection.
+**⚡ Autofill** — Directly insert the completed method below the selection.
 
-🪄 Session-Aware — Each file has its own server session with conversation history.
+**🪄 Session-Aware** — Each file has its own server session with conversation history.
 
-🪟 Beautiful Floating Windows — Clean vertical scrolling, markdown rendering, and neat formatting.
+**🪟 Beautiful Floating Windows** — Clean vertical scrolling, markdown rendering, and neat formatting.
 
 🛑 No external dependencies on paid APIs if you have your Gemini key — everything runs locally.
-
-📸 Demo
-
-(Optional — you can add a GIF or short mp4 later showing the floating window in action)
 
 ## 🧰 Tech Stack
 
